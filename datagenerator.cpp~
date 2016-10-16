@@ -32,8 +32,8 @@ int main()
 		int j=0;
 		stringstream ss;
 		ss << i;
-		string filename=ss.str()+"b.jpg";
-		string origname=ss.str()+".jpg";
+		string filename="images/"+ss.str()+"b.jpg";
+		string origname="images/"+ss.str()+".jpg";
 		Mat src = imread(filename, CV_LOAD_IMAGE_GRAYSCALE);
 		Mat colorsrc = imread(origname, CV_LOAD_IMAGE_COLOR);
 		while(j<50)
