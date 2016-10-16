@@ -1,0 +1,50 @@
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include <boost/algorithm/string.hpp>
+#include <iostream>
+#include <string>
+#include <streambuf>
+#include <cstdlib>
+
+#define maxx 1660
+#define minx 1
+#define maxy 820
+#define miny 1
+
+using namespace cv;
+using namespace std;
+
+int i=0;
+
+int main()
+{
+	i=i+1;
+	stringstream ss;
+	ss << i;
+	string filename=ss.str()+"b.png";
+	Mat src = imread(filename, CV_LOAD_IAMGE_GRAYSCALE);
+	Rect randomrect;
+	randomrect.x = (rand()%(maxx-minx))+minx;
+	randomrect.y = (rand()%(maxy-miny))+miny;
+	randomrect.width = 256;
+	randomrect.height = 256;
+	Mat croppedRandom;
+	croppedRandom = src(randomrect);
+	int blackdots=countNonZero(croppedRandom);
+	cout<<blackdots<<endl;
+	if(blackdots>52428)
+	{
+		cout<<"Negative found"<<endl;
+		imwrite(croppedRandom,"/genData/neg/neg1.png");
+	}
+	else if (blackdots<6553)
+	{
+		cout<<"Positive found"<<endl;
+		imwrite(croppedRandom,"/genData/pos/pos1.png");
+	}
+	else
+	{
+		cout<<"Nothing spectacular found. Trying again"<<endl;
+	}
+
+}
